@@ -1,14 +1,19 @@
-name = "storemaster-v4"
+name = "storemaster-worker"
+
 main = "worker.js"
+
 compatibility_date = "2026-09-03"
 
+account_id = "06c26ba021336c89415210cb3338b9b4"
+
+
 [vars]
-GITHUB_OWNER = "CHANGE_ME"
+
+GITHUB_OWNER = "one-wil"
+
 
 [[kv_namespaces]]
-binding = "LICENSES"
-id = "CHANGE_ME"
 
-# Required secrets:
-# wrangler secret put GITHUB_TOKEN
-# wrangler secret put MASTER_API_KEY
+binding = "LICENSES"
+
+id = "601bbea18e924992852775cea9f017d5"
