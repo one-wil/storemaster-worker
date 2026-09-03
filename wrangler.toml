@@ -1,4 +1,4 @@
-name = "storemaster-worker"
+name = "storemasterr-worker"
 
 main = "worker.js"
 
