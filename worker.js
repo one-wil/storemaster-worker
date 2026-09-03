@@ -127,7 +127,126 @@ async function putFile(repo,path,content,message,env){
 function decodeBase64Utf8(s){
   return decodeURIComponent(escape(atob(s.replace(/\n/g,""))));
 }
-async function copyTemplate(source,target,storeId,token,env){
+async function copyTemplate(source, target, storeId, token, env) {
+
+  const files = await filesOf(source, env);
+
+  let injected = 0;
+
+  for (const path of files) {
+
+    const f = await readFile(source, path, env);
+
+    const isTextFile =
+      /\.(html|js|json|css|txt)$/i.test(path);
+
+    // =====================================================
+    // 📄 FICHIERS TEXTE
+    // =====================================================
+
+    if (isTextFile) {
+
+      let content =
+        decodeBase64Utf8(f.content || "");
+
+      let changed = false;
+
+      // STORE ID
+
+      if (content.includes(MARKERS.storeId)) {
+
+        content =
+          content
+            .split(MARKERS.storeId)
+            .join(storeId);
+
+        changed = true;
+      }
+
+
+      // TOKEN
+
+      if (content.includes(MARKERS.token)) {
+
+        content =
+          content
+            .split(MARKERS.token)
+            .join(token);
+
+        changed = true;
+      }
+
+
+      if (changed) {
+
+        injected++;
+
+      }
+
+
+      await putFile(
+
+        target,
+
+        path,
+
+        content,
+
+        `StoreMaster V4.4: copie ${path}`,
+
+        env
+
+      );
+
+
+    }
+
+
+    // =====================================================
+    // 🖼️ FICHIERS BINAIRES
+    // Images JPG PNG WEBP etc.
+    // =====================================================
+
+    else {
+
+      await gh(
+
+        `/repos/${enc(env.GITHUB_OWNER)}/${enc(target)}/contents/${encodePath(path)}`,
+
+        {
+
+          method: "PUT",
+
+          body: JSON.stringify({
+
+            message:
+              `StoreMaster V4.4: copie ${path}`,
+
+            content:
+              f.content
+
+          })
+
+        },
+
+        env
+
+      );
+
+    }
+
+  }
+
+
+  return {
+
+    count: files.length,
+
+    injected
+
+  };
+
+}
   const files=await filesOf(source,env);
   let injected=0;
   for(const path of files){
