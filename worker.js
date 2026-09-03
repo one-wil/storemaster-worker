@@ -102,7 +102,7 @@ async function exists(repo,env){
   catch(e){if(e.status===404)return false;throw e}
 }
 async function createRepo(repo,name,env){
-  const body={name:repo,description:`StoreMaster — ${name}`,private:true,auto_init:false};
+  const body={name:repo,description:`StoreMaster — ${name}`,private:false,auto_init:false};
   try{
     return await gh(`/orgs/${enc(env.GITHUB_OWNER)}/repos`,{method:"POST",body:JSON.stringify(body)},env);
   }catch(e){
