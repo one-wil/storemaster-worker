@@ -1,6 +1,6 @@
 /* ============================================================
 
-STOREMASTER V6.2
+STOREMASTER V8.1
 
 SECURE MULTI-STORE CLOUDFLARE WORKER
 
@@ -56,7 +56,7 @@ MASTER_API_KEY
 ============================================================ */
 
 
-const APP_VERSION = "6.2";
+const APP_VERSION = "8.1";
 
 
 
@@ -899,7 +899,7 @@ headers: {
 "User-Agent":
 
 
-"StoreMaster-V6.2",
+"StoreMaster-V8.1",
 
 
 
@@ -2043,7 +2043,7 @@ file.path,
 content,
 
 
-`StoreMaster V6.2: copie ${file.path}`
+`StoreMaster V8.1: copie ${file.path}`
 
 );
 
@@ -3324,7 +3324,7 @@ const license = {
 version:
 
 
-6.2,
+8.1,
 
 
 
@@ -3439,7 +3439,7 @@ env,
 repository,
 
 
-`StoreMaster V6.2 - ${storeName}`
+`StoreMaster V8.1 - ${storeName}`
 
 );
 
